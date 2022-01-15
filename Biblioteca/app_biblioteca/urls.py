@@ -3,5 +3,6 @@ from app_biblioteca import views
 
 urlpatterns = [
     path('', views.inicio),
+    path("libros.html", views.libros)
     
 ]
