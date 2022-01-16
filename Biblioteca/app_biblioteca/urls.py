@@ -6,7 +6,7 @@ from app_biblioteca import views
 urlpatterns = [
     path('', views.inicio),
     path("libros/", views.libros),
-    path("cursos/", views.curso),
+    path("cursos/", views.cursos),
     path("socios/", views.socios),
     path("catalogo/", views.catalogo, name='catalogo')
     

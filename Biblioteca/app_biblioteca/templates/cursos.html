@@ -7,12 +7,25 @@
     <title>Libros</title>
 </head>
 <body>
+<h2 style="color: blue;">Cargar nuevos cursos:</h2>
+     <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
+     {% if miFormularioCurso.errors %}
 
+     <p style="color: red;"> Están mal los datos, revisar</p>
  
-     <h2>Cursos de la Biblioteca</h2>
-
-           
-                
+     {% endif %}
+     <form action="" method="POST">{% csrf_token %}
+ 
+         <!-- Acá está la magia de Django-->
+         
+         <table>
+             {{ miFormularioCurso.as_table }}
+         </table>
+ 
+         <input type="submit", value="Cargar cursos">
+ 
+     </form>
+ 
  
 </body>
 </html>

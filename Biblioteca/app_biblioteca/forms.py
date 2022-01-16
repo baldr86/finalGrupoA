@@ -12,3 +12,11 @@ class SocioFormulario(forms.Form):
     documento= forms.IntegerField()
     mail= forms.EmailField()
     telefono= forms.IntegerField()
+
+
+class CursoFormulario(forms.Form):
+    nombre=forms.CharField(max_length=40)
+    codigocurso=forms.IntegerField()
+    docente=forms.CharField(max_length=30)
+    diahorario=forms.CharField(max_length=40)
+
