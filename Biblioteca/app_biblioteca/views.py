@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from app_biblioteca.models import Libro
 from app_biblioteca.forms import LibroFormulario
+from app_biblioteca.models import Cursos
 
 def inicio(request):
 
@@ -35,3 +36,14 @@ def libros(request):
 
       return render(request, "libros.html", {"miFormulario":miFormulario})
 
+	
+
+
+def curso(self):
+      curso=Cursos(nombre=['nombre'], codigocurso=['codigocurso'], docente=['docente'], 
+      diahorario= ['diahorario'] )
+
+      curso.save()
+      texto= f'Has creado el curso: {curso.nombre} comisión: {curso.codigocurso}'
+
+      return HTTPResponse(texto)
