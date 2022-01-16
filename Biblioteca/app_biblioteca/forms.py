@@ -6,3 +6,9 @@ class LibroFormulario(forms.Form):
     publicacion= forms.IntegerField()
     genero= forms.CharField(max_length=20)
     editorial= forms.CharField(max_length=20)
+
+class SocioFormulario(forms.Form):
+    nombre= forms.CharField(max_length=40)
+    documento= forms.IntegerField()
+    mail= forms.EmailField()
+    telefono= forms.IntegerField()

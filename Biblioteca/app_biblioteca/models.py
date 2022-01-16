@@ -13,3 +13,9 @@ class Cursos(models.Model):
     docente=models.CharField(max_length=30)
     diahorario=models.CharField(max_length=40)
 
+class Socio(models.Model):
+    nombre= models.CharField(max_length=40)
+    documento= models.IntegerField()
+    mail= models.EmailField()
+    telefono= models.IntegerField()
+
