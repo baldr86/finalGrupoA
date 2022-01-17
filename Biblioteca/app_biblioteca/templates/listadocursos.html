@@ -1,0 +1,16 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+    
+    <h2 style="color:orangered">Listado de Cursos</h2>
+    <ul>
+    {% for curso in listacurso %}
+                
+        <li> {{curso.nombre}} &nbsp&nbsp&nbsp {{curso.diahorario}}</li>
+       
+    {% endfor %}
+    </ul>
+
+{% endblock %}

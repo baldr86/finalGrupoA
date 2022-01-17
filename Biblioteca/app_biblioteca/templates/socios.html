@@ -1,31 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Socios</title>
-</head>
-<body>
-<h2 style="color: blue;">Cargar nuevos socios:</h2>
-     <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-     {% if miFormulario.errors %}
+{% extends "padre.html" %}
 
-     <p style="color: red;"> Están mal los datos, revisar</p>
+{% load static %}
+
+{% block ContenidoQueCambia %}
+
+    <h2 style="color:orangered">Cargar nuevos socios:</h2>
+        <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
+        {% if miFormulario.errors %}
+
+        <p style="color: red;"> Están mal los datos, revisar</p>
  
-     {% endif %}
-     <form action="" method="POST">{% csrf_token %}
+        {% endif %}
+        <form action="" method="POST">{% csrf_token %}
  
-         <!-- Acá está la magia de Django-->
+            <!-- Acá está la magia de Django-->
          
-         <table>
-             {{ miFormulario.as_table }}
-         </table>
+            <table>
+                 {{ miFormulario.as_table }}
+            </table>
  
-         <input type="submit", value="Cargar socio">
+            <input type="submit", value="Cargar socio">
  
-     </form>
+        </form>
   
-</body>
-</html>
+{% endblock %}
 

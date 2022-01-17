@@ -2,7 +2,7 @@ from http.client import HTTPResponse
 from django.shortcuts import render
 from django.http import HttpResponse
 from app_biblioteca.models import Libro
-from app_biblioteca.forms import LibroFormulario, SocioFormulario
+from app_biblioteca.forms import LibroFormulario, SocioFormulario, CursoFormulario
 from app_biblioteca.models import Cursos, Socio
 
 
@@ -40,14 +40,32 @@ def libros(request):
 	
 
 
-def curso(self):
-      curso=Cursos(nombre=['nombre'], codigocurso=['codigocurso'], docente=['docente'], 
-      diahorario= ['diahorario'] )
+def cursos(request):
 
-      curso.save()
-      texto= f'Has creado el curso: {curso.nombre} comisión: {curso.codigocurso}'
+      if request.method == 'POST':
 
-      return HTTPResponse(texto)
+            miFormularioCurso = CursoFormulario(request.POST)
+
+            print(miFormularioCurso)
+
+            if miFormularioCurso.is_valid:
+
+                  informacion = miFormularioCurso.cleaned_data
+
+                  curso = Cursos (nombre=informacion["nombre"],
+                  codigocurso=informacion["codigocurso"], 
+                  docente=informacion["docente"], diahorario=informacion["diahorario"] )
+
+                  curso.save()
+
+                  return render(request, "inicio.html") 
+
+      else: 
+
+            miFormularioCurso= CursoFormulario()
+
+      return render(request, "cursos.html", {"miFormularioCurso":miFormularioCurso}) 
+
 
 
 def socios(request):
@@ -80,8 +98,6 @@ def socios(request):
 def catalogo(request):
 
     catalogo = Libro.objects.all()
-
-    #print(catalogo)
 
     return render (request, 'catalogo.html', {'catalogo':catalogo} )
 
