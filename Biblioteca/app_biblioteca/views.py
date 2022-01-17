@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from app_biblioteca.models import Libro
 from app_biblioteca.forms import LibroFormulario, SocioFormulario, CursoFormulario
 from app_biblioteca.models import Cursos, Socio
-
+from django.db.models.functions import Lower, Replace
 
 def inicio(request):
 
@@ -101,11 +101,28 @@ def catalogo(request):
 
     return render (request, 'catalogo.html', {'catalogo':catalogo} )
 
-def busquedaLibros (request):
 
-      if request.GET("libro"):
+def listadocursos (request):
 
-            libro = request.GET("libro")
-            catalogo = Libro.objects.filter(nombre=libro)
+    listacurso = Cursos.objects.all()
 
-            return render(request,'busquedalibro.html', {"nombre": libro})
+    return render (request, 'listadocursos.html', {'listacurso':listacurso} )  
+
+
+def buscarLibro (request):
+
+      return render(request, 'buscarlibro.html')
+
+def buscar(request):
+      if request.method == "GET":
+
+            libro = request.GET["libro"].lower()
+            libros= Libro.objects.filter(nombre__icontains=libro)
+
+            return render(request, "resultado.html",{"libro": libro, "libros": libros})
+     
+
+      else: 
+           respuesta=  "No se encuentra el libro"
+
+      return HttpResponse(respuesta)
