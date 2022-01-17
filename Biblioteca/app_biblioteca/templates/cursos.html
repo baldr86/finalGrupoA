@@ -1,31 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Libros</title>
-</head>
-<body>
-<h2 style="color: blue;">Cargar nuevos cursos:</h2>
-     <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-     {% if miFormularioCurso.errors %}
+{% extends "padre.html" %}
 
-     <p style="color: red;"> Están mal los datos, revisar</p>
+{% load static %}
+
+{% block ContenidoQueCambia %}
+    
+    <h2 style="color:orangered">Cargar nuevos cursos:</h2>
+        <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
+        {% if miFormularioCurso.errors %}
+
+            <p style="color: red;"> Están mal los datos, revisar</p>
  
-     {% endif %}
-     <form action="" method="POST">{% csrf_token %}
+        {% endif %}
+
+            <form action="" method="POST">{% csrf_token %}
  
-         <!-- Acá está la magia de Django-->
+            <!-- Acá está la magia de Django-->
          
-         <table>
-             {{ miFormularioCurso.as_table }}
-         </table>
+            <table>
+               {{ miFormularioCurso.as_table }}
+            </table>
  
-         <input type="submit", value="Cargar cursos">
+            <input type="submit", value="Cargar cursos">
  
-     </form>
+            </form>
  
- 
-</body>
-</html>
+{% endblock %}

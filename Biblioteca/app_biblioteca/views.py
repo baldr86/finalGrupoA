@@ -99,6 +99,12 @@ def catalogo(request):
 
     catalogo = Libro.objects.all()
 
-    #print(catalogo)
-
     return render (request, 'catalogo.html', {'catalogo':catalogo} )
+
+
+def listadocursos (request):
+
+    listacurso = Cursos.objects.all()
+
+    return render (request, 'listadocursos.html', {'listacurso':listacurso} )  
+

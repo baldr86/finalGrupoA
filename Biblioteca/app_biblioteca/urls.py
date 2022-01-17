@@ -4,10 +4,12 @@ from app_biblioteca import views
 
 
 urlpatterns = [
-    path('', views.inicio),
+    path('', views.inicio, name='inicio'),
     path("libros/", views.libros),
     path("cursos/", views.cursos),
     path("socios/", views.socios),
-    path("catalogo/", views.catalogo, name='catalogo')
-    
+    path("catalogo/", views.catalogo, name='catalogo'),
+    path("listadocursos/", views.listadocursos, name='listadocursos'),
 ]
+    
+
