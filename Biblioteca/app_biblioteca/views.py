@@ -84,3 +84,12 @@ def catalogo(request):
     #print(catalogo)
 
     return render (request, 'catalogo.html', {'catalogo':catalogo} )
+
+def busquedaLibros (request):
+
+      if request.GET("libro"):
+
+            libro = request.GET("libro")
+            catalogo = Libro.objects.filter(nombre=libro)
+
+            return render(request,'busquedalibro.html', {"nombre": libro})
