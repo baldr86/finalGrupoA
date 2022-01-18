@@ -22,13 +22,15 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href="#!">Inicio</a>
+                <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
                 <a class="navbar-brand" href="{% url 'catalogo' %}">Catálogo</a>
-                <a class="navbar-brand" href="#!">Cursos</a>
+                <a class="navbar-brand" href="{% url 'listadocursos' %}">Cursos</a>
+                <a class="navbar-brand" href="{% url 'buscarlibro' %}">Buscar libros</a>
                 <a class="navbar-brand" href="#!">Crea tu cuenta</a>
                 <a class="navbar-brand" href="#!">Acceso a Socios</a>
             </div>
         </nav>
+        
         <!-- Header-->
         <header class="masthead text-center text-white">
             <div class="masthead-content">
