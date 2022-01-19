@@ -1,0 +1,43 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+
+    <h2 style="color:orangered">Resultado de la búsqueda de: &nbsp&nbsp&nbsp {{libro}} </h2>
+    
+    {% if libros %}
+
+    <ul>
+                  
+        {% for libro in libros %}
+
+        <li>
+           
+            {{libro.nombre}}&nbsp&nbsp&nbsp
+            {{libro.autor}}&nbsp&nbsp&nbsp
+            {{libro.publicacion}}&nbsp&nbsp&nbsp
+            {{libro.genero}}&nbsp&nbsp&nbsp
+            {{libro.editorial}}&nbsp&nbsp&nbsp
+
+        </li>
+
+        {% endfor %}
+
+    </ul>
+             
+
+    {% elif libro == "" %}
+
+        <p style="color:orangered">Ingrese el nombre del libro</p>
+
+    {% else %}
+
+        <p style="color:orangered">No contamos con dicho libro</p>
+
+    
+    {% endif %}
+    
+
+{% endblock %}
+

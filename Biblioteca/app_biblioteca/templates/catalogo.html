@@ -1,0 +1,16 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+    
+    <h2 style="color:orangered">Listado de Libros - Autores</h2>
+    <ul>
+    {% for catalogo in catalogo %}
+                
+        <li> {{catalogo.nombre}} &nbsp&nbsp&nbsp {{catalogo.autor}}</li>
+       
+    {% endfor %}
+    </ul>
+
+{% endblock %}

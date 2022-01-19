@@ -1,0 +1,27 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+
+    <h2 style="color:orangered">Cargar nuevos socios:</h2>
+        <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
+        {% if miFormulario.errors %}
+
+        <p style="color: red;"> Están mal los datos, revisar</p>
+ 
+        {% endif %}
+        <form action="" method="POST">{% csrf_token %}
+ 
+            <!-- Acá está la magia de Django-->
+         
+            <table>
+                 {{ miFormulario.as_table }}
+            </table>
+ 
+            <input type="submit", value="Cargar socio">
+ 
+        </form>
+  
+{% endblock %}
+
