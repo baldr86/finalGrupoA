@@ -126,3 +126,12 @@ def buscar(request):
            respuesta=  "No se encuentra el libro"
 
       return HttpResponse(respuesta)
+
+def creatucuenta (request):
+
+      return render(request, 'creatucuenta.html')
+
+def accesoasocios (request):
+
+      return render (request, 'accesoasocios.html')
+
