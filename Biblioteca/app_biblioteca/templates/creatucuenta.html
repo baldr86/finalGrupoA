@@ -4,10 +4,16 @@
 
 {% block ContenidoQueCambia %}
     
-<center>
-    <h3 style="color:orangered">Crea tu cuenta</h3> 
-    <img class="img-fluid rounded-circle" src="{%static 'app_biblioteca/assets/img/01.jpg' %}" alt="..." />
-</center>
-   
+
+    <title>Registro socio</title>
+    <h2 style="color:orangered">Ingresa los siguientes datos:</h2>
+    <form action="" method = "POST">
+        {% csrf_token %}
+        {{ form.as_p}}
+        
+        <button type="sumbit">Registrate!!!</button>
+    </form>
+
+
 
 {% endblock %}

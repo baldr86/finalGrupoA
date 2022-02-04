@@ -1,0 +1,26 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+
+    <h2 style="color:orangered">Lista socios:</h2>
+   
+    <ul>
+        {% for socio in object_list %}
+        <li>
+            <p> NOMBRE: {{ socio.nombre }}</p>
+            <p>
+                <a href="{% url 'Detail' socio.id %}">Ver</a>
+                <a href="{% url 'Edit' socio.id %}">Editar</a>
+                <a href="{% url 'Delete' socio.id %}">Borrar</a>
+            </p>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'New' %}">Nuevo</a>
+    <br>
+    <a href="{% url 'accesoastaff' %}">Regresar: Libros / Cursos / Socios</a>
+    
+{% endblock %}
+

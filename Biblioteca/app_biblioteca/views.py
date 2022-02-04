@@ -1,98 +1,24 @@
 from http.client import HTTPResponse
 from django.shortcuts import render
 from django.http import HttpResponse
-from app_biblioteca.models import Libro
-from app_biblioteca.forms import LibroFormulario, SocioFormulario, CursoFormulario
-from app_biblioteca.models import Cursos, Socio
+from app_biblioteca.forms import LibroFormulario, SocioFormulario, CursoFormulario, UserRegisterForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import Group
+from django.contrib.admin.views.decorators import staff_member_required
+#from django.contrib.auth.decorators import user_passes_test
+from app_biblioteca.models import Curso, Socio, Libro
 from django.db.models.functions import Lower, Replace
+from django.contrib import auth
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.urls import reverse_lazy
 
 def inicio(request):
 
     return render(request, "inicio.html")
-
-
-def libros(request):
-
-      if request.method == 'POST':
-
-            miFormulario = LibroFormulario(request.POST)
-
-            print(miFormulario)
-
-            if miFormulario.is_valid:
-
-                  informacion = miFormulario.cleaned_data
-
-                  libro = Libro (nombre=informacion['nombre'], autor=informacion['autor'],
-                  publicacion=informacion["publicacion"], genero=informacion["genero"],
-                  editorial=informacion["editorial"] )
-
-                  libro.save()
-
-                  return render(request, "inicio.html") 
-
-      else: 
-
-            miFormulario= LibroFormulario()
-
-      return render(request, "libros.html", {"miFormulario":miFormulario})
-
-	
-
-
-def cursos(request):
-
-      if request.method == 'POST':
-
-            miFormularioCurso = CursoFormulario(request.POST)
-
-            print(miFormularioCurso)
-
-            if miFormularioCurso.is_valid:
-
-                  informacion = miFormularioCurso.cleaned_data
-
-                  curso = Cursos (nombre=informacion["nombre"],
-                  codigocurso=informacion["codigocurso"], 
-                  docente=informacion["docente"], diahorario=informacion["diahorario"] )
-
-                  curso.save()
-
-                  return render(request, "inicio.html") 
-
-      else: 
-
-            miFormularioCurso= CursoFormulario()
-
-      return render(request, "cursos.html", {"miFormularioCurso":miFormularioCurso}) 
-
-
-
-def socios(request):
-
-      if request.method == 'POST':
-
-            miFormulario = SocioFormulario(request.POST)
-
-            print(miFormulario)
-
-            if miFormulario.is_valid:
-
-                  informacion = miFormulario.cleaned_data
-
-                  socio = Socio(nombre=informacion["nombre"], documento=informacion["documento"],
-                  mail=informacion["mail"], telefono=informacion["telefono"] )
-
-                  socio.save()
-
-                  return render(request, "inicio.html") 
-
-      else: 
-
-            miFormulario= SocioFormulario()
-
-      return render(request, "socios.html", {"miFormulario":miFormulario})
-
 
 
 def catalogo(request):
@@ -104,7 +30,7 @@ def catalogo(request):
 
 def listadocursos (request):
 
-    listacurso = Cursos.objects.all()
+    listacurso = Curso.objects.all()
 
     return render (request, 'listadocursos.html', {'listacurso':listacurso} )  
 
@@ -112,6 +38,7 @@ def listadocursos (request):
 def buscarLibro (request):
 
       return render(request, 'buscarlibro.html')
+
 
 def buscar(request):
       if request.method == "GET":
@@ -129,9 +56,147 @@ def buscar(request):
 
 def creatucuenta (request):
 
-      return render(request, 'creatucuenta.html')
+    if request.method == "POST":
+
+        #form = UserCreationForm (request.POST)
+        form = UserRegisterForm (request.POST)
+        if form.is_valid():
+            username= form.cleaned_data['username']
+            #form.cleaned_data ['groups'] = 'Asociados'
+            form.save()
+            #form.cleaned_data ['groups'] = 'Asociados'
+            print (form)
+            return render (request, 'padre.html', {'mensaje': 'Usuario Creado con éxito :) '})
+           
+        else:
+            return render (request, 'padre.html', {'mensaje': 'Usuario no creado, intenta nuevamente'})
+
+    else:
+        #form = UserCreationForm ()
+        form = UserRegisterForm ()
+        return render (request, 'creatucuenta.html', {'form': form})
 
 def accesoasocios (request):
 
-      return render (request, 'accesoasocios.html')
+    if request.method == "POST":
+        form = AuthenticationForm (request, data=request.POST)
+        if form.is_valid():
 
+            data= form.cleaned_data
+            user = authenticate (username=data['username'], password=data['password'])
+
+            if user is not None:
+
+                login (request, user)
+                return render (request, 'padre.html')
+              
+            else:
+
+                return render (request, "padre.html", {"mensaje": "Falló la autenticación"})
+
+        else:
+            return render (request, "padre.html", {"mensaje": "Ingreso erróneo, intenta nuevamente"})
+        
+    else:
+        form = AuthenticationForm()
+        return render (request, "accesoasocios.html", {'form': form})
+
+def accesoastaff (request):
+    
+    return render (request, 'menustaff.html')
+              
+
+class SocioList (LoginRequiredMixin, ListView):
+
+    model = Socio
+    template_name= "socio_list.html"
+
+class SocioDetail (DetailView):
+
+    model = Socio
+    template_name= "socio_detail.html"
+
+class SocioUpdate (UpdateView):
+
+    model = Socio
+    success_url= '/app_biblioteca/listaSocios'
+    fields = ['nombre', 'documento', 'mail', 'telefono']
+    template_name= 'socio_form.html'
+   
+    
+class SocioCreate (CreateView):
+
+    model = Socio
+    success_url= '/app_biblioteca/listaSocios'
+    fields = ['nombre', 'documento', 'mail', 'telefono']    
+    template_name= 'socios.html'
+    
+
+class SocioDelete (DeleteView):
+
+    model = Socio
+    success_url= '/app_biblioteca/listaSocios'
+    template_name= 'socio_confirm_delete.html'
+
+  
+class LibroList (LoginRequiredMixin, ListView):
+
+    model = Libro
+    template_name= "libro_list.html"
+
+class LibroDetail (DetailView):
+
+    model = Libro
+    template_name= "libro_detail.html"
+
+class LibroUpdate (UpdateView):
+
+    model = Libro
+    success_url= '/app_biblioteca/listaLibros'
+    fields = ['nombre', 'autor', 'publicacion', 'genero', 'editorial']
+    template_name= 'libro_form.html'
+       
+class LibroCreate (CreateView):
+
+    model = Libro
+    success_url= '/app_biblioteca/listaLibros'
+    fields = ['nombre', 'autor', 'publicacion', 'genero', 'editorial']   
+    template_name= 'libros.html'
+    
+class LibroDelete (DeleteView):
+
+    model = Libro
+    success_url= '/app_biblioteca/listaLibros'
+    template_name= 'libro_confirm_delete.html'
+
+  
+class CursoList (LoginRequiredMixin, ListView):
+
+    model = Curso
+    template_name= "curso_list.html"
+
+class CursoDetail (DetailView):
+
+    model = Curso
+    template_name= "curso_detail.html"
+
+class CursoUpdate (UpdateView):
+
+    model = Curso
+    success_url= '/app_biblioteca/listaCursos'
+    fields = ['nombre', 'codigocurso', 'docente', 'diahorario']
+    template_name= 'curso_form.html'
+       
+class CursoCreate (CreateView):
+
+    model = Curso
+    success_url= '/app_biblioteca/listaCursos'
+    fields = ['nombre', 'codigocurso', 'docente', 'diahorario']   
+    template_name= 'cursos.html'
+    
+class CursoDelete (DeleteView):
+
+    model = Curso
+    success_url= '/app_biblioteca/listaCursos'
+    template_name= 'curso_confirm_delete.html'
+  

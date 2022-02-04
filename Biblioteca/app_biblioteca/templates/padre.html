@@ -23,11 +23,20 @@
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
+                {% if user.is_staff == 1 %}
+                <a class="navbar-brand" href="{% url 'accesoastaff' %}">Personal P.P.P.</a>
+                {% endif %}
                 <a class="navbar-brand" href="{% url 'catalogo' %}">Catálogo</a>
-                <a class="navbar-brand" href="{% url 'listadocursos' %}">Cursos</a>
                 <a class="navbar-brand" href="{% url 'buscarlibro' %}">Buscar libros</a>
+                <a class="navbar-brand" href="{% url 'listadocursos' %}">Cursos</a>
                 <a class="navbar-brand" href="{% url 'creatucuenta' %}">Crea tu cuenta</a>
-                <a class="navbar-brand" href="{% url 'accesoasocios' %}">Acceso a Socios</a>
+                {% if not request.user.is_authenticated %}
+                <a class="navbar-brand" href="{% url 'accesoasocios' %}">Ingresar</a>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                <p class="text-muted mb-4 mb-lg-0>">Hola {{user.username}}!!!</p>
+                <a class="btn btn-primary" href="{% url 'Logout' %}">SALIR</a>
+                {% endif %}
             </div>
         </nav>
         <!-- Header-->
@@ -47,10 +56,9 @@
         </header>
         <!-- Content section 1-->
         
-
         {% block ContenidoQueCambia %}
-
-
+        <h2 style="color:orangered">{{ mensaje }}</h2>
+       
         {% endblock %}
 
 

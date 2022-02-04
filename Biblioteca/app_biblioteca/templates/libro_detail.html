@@ -1,0 +1,19 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+
+    <h2 style="color:orangered">Detalle:</h2>
+   
+        <p>Titulo del libro: <i> {{ libro.nombre }}</i></p>
+        <p>Autor: <i> {{ libro.autor }}</i></p> 
+        <p>Fecha Publicación: <i> {{ libro.publicacion }}</i></p> 
+        <p>Género: <i> {{ libro.genero }}</i></p> 
+        <p>Editorial: <i> {{ libro.editorial }}</i></p>
+        <p>
+            <a href="{% url 'ListL' %}"> Regresar </a>
+        </p>
+    
+{% endblock %}
+
