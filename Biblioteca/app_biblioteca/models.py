@@ -11,7 +11,7 @@ class Libro(models.Model):
     genero= models.CharField(max_length=20)
     editorial=models.CharField(max_length=20)
 
-class Cursos(models.Model):
+class Curso(models.Model):
 
     def __str__(self):
         return f'Nombre: {self.nombre} - Dia y hora: {self.diahorario}' 

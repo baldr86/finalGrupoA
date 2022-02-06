@@ -1,0 +1,18 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+
+    <h2 style="color:orangered">Detalle:</h2>
+   
+        <p>Nombre del socio: <i> {{ socio.nombre }}</i></p>
+        <p>Mail: <i> {{ socio.mail }}</i></p> 
+        <p>Documento: <i> {{ socio.documento }}</i></p> 
+        <p>Telefono: <i> {{ socio.telefono }}</i></p> 
+        <p>
+            <a href="{% url 'List' %}"> Regresar </a>
+        </p>
+    
+{% endblock %}
+

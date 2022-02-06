@@ -1,0 +1,16 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+
+    <h2 style="color:orangered">Actualiza libro</h2>
+   
+    <form method = "post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type = "submit" value= "enviar">
+    </form>
+    
+{% endblock %}
+

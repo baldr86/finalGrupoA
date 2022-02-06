@@ -4,22 +4,20 @@
 
 {% block ContenidoQueCambia %}
 
-    <h2 style="color:orangered">Cargar nuevos libros al catalogo:</h2>
-    <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-        {% if miFormulario.errors %}
+    <h2 style="color:orangered">Cargar nuevo libro:</h2>
+  
+        {% if form.errors %}
 
             <p style="color: red;"> Están mal los datos, revisar</p>
 
         {% endif %}
         <form action="" method="POST">{% csrf_token %}
-
-            <!-- Acá está la magia de Django-->
     
             <table>
-                {{ miFormulario.as_table }}
+                {{ form.as_table }}
             </table>
 
-            <input type="submit", value="Cargar libro">
+            <input type="submit", value="Crear">
 
         </form>
 

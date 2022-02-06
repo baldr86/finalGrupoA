@@ -1,0 +1,17 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+
+    <h2 style="color:orangered">Detalle:</h2>
+   
+        <p>Nombre del Curso: <i> {{ curso.nombre }}</i></p>
+        <p>Código: <i> {{ curso.codigocurso }}</i></p> 
+        <p>Docente: <i> {{ curso.docente }}</i></p> 
+        <p>Día y horario: <i> {{ curso.diahorario }}</i></p>        
+        <p>
+            <a href="{% url 'ListC' %}"> Regresar </a>
+        </p>
+    
+{% endblock %}
