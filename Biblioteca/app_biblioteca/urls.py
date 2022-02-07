@@ -1,7 +1,8 @@
 from django.urls import path
 from app_biblioteca import views
 from django.contrib.auth.views import LogoutView
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
@@ -32,7 +33,16 @@ urlpatterns = [
     path('eliminaCursos/<pk>/', views.CursoDelete.as_view(), name='DeleteC'),  
     path('actualizaCursos/<pk>/', views.CursoUpdate.as_view(), name='EditC'),   
 
+    path("postlist/", views.PostListView.as_view(), name = "post_list"),
+    path("crearpost/", views.PostCreateView.as_view(), name = "crearpost"),
+    path("<slug>/", views.PostDetailView.as_view(), name = "post_detail"),  
+    path("<slug>/actualizarpost", views.PostUpdateView.as_view(), name = "actualizarpost"),
+    path("<slug>/borrarpost", views.PostDeleteView.as_view(), name = "borrarpost"),
+
 
 ]
     
-
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+   

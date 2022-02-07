@@ -1,0 +1,35 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+
+{% block ContenidoQueCambia %}
+    
+<H2>listas de post</H2>
+
+<div class="container">
+    
+    {% for object in object_list  %}
+
+  
+  
+  <h2>{{ object.imagen.url }}></h2>
+   
+    <a href="#">
+    <div class="card" style="width: 18rem;">
+        <img src="{{ object.imagen.url }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{object.titulo}}</h5>
+          <p class="card-text">{{object.contenido|truncatechars:40 }}.</p>
+          
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+    
+
+</div>
+
+
+{% endblock %}
+

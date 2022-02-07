@@ -1,13 +1,14 @@
+from dataclasses import field
 from http.client import HTTPResponse
 from django.shortcuts import render
 from django.http import HttpResponse
-from app_biblioteca.forms import LibroFormulario, SocioFormulario, CursoFormulario, UserRegisterForm
+from app_biblioteca.forms import LibroFormulario, SocioFormulario, CursoFormulario, UserRegisterForm, postForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import Group
 from django.contrib.admin.views.decorators import staff_member_required
 #from django.contrib.auth.decorators import user_passes_test
-from app_biblioteca.models import Curso, Socio, Libro
+from app_biblioteca.models import Curso, Post, Socio, Libro
 from django.db.models.functions import Lower, Replace
 from django.contrib import auth
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -199,4 +200,52 @@ class CursoDelete (DeleteView):
     model = Curso
     success_url= '/app_biblioteca/listaCursos'
     template_name= 'curso_confirm_delete.html'
-  
+
+
+#POST DE SOCIOS
+
+class PostListView (ListView):
+
+    model = Post
+    template_name= "post_list.html"
+
+class PostDetailView (DetailView):
+
+    model = Post
+    template_name= "post_detail.html"
+
+class PostCreateView (CreateView):
+    form_class = postForm
+    model = Post
+
+    template_name= 'post_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'view_type': 'Crear'
+        })
+        return context
+        
+    success_url= '/app_biblioteca/postlist'
+
+class PostUpdateView (UpdateView):
+    form_class = postForm
+    model = Post
+
+    template_name= 'post_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'view_type': 'Actualizar'
+        })
+        return context
+
+    success_url= '/app_biblioteca/postlist'    
+
+class PostDeleteView (DeleteView):
+
+    model = Post
+    template_name= 'post_confirm_delete.html'
+    success_url= '/app_biblioteca/postlist'

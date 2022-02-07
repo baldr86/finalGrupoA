@@ -4,6 +4,7 @@ from unittest.util import _MAX_LENGTH
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Post
 
 class LibroFormulario(forms.Form):   
     nombre= forms.CharField(max_length=40)
@@ -40,3 +41,13 @@ class UserRegisterForm (UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2', 'groups']
         #saca los mensajes de ayuda
         help_text = {k:"" for k in fields}
+
+#Formularios para Posts
+
+class postForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Post
+        fields = ('__all__')
+

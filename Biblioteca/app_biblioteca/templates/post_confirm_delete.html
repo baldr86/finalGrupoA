@@ -1,0 +1,16 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+    
+<H2>¿Estas seguro que desea eliminar?</H2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <button class="btn btn-primary" type="submit">Confirmar</button>
+</form>
+
+
+{% endblock %}
