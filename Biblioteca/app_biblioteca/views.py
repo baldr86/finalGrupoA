@@ -1,6 +1,6 @@
 from dataclasses import field
 from http.client import HTTPResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from app_biblioteca.forms import LibroFormulario, SocioFormulario, CursoFormulario, UserRegisterForm, postForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -8,7 +8,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import Group
 from django.contrib.admin.views.decorators import staff_member_required
 #from django.contrib.auth.decorators import user_passes_test
-from app_biblioteca.models import Curso, Post, Socio, Libro
+from app_biblioteca.models import Curso, Like, Post, Socio, Libro
 from django.db.models.functions import Lower, Replace
 from django.contrib import auth
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -249,3 +249,16 @@ class PostDeleteView (DeleteView):
     model = Post
     template_name= 'post_confirm_delete.html'
     success_url= '/app_biblioteca/postlist'
+
+def like(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    like_qs = Like.objects.filter(usuario=request.user, post=post)
+
+    if like_qs.exists():
+        like_qs[0].delete()
+
+        return redirect("post_detail", slug=slug)
+
+    Like.objects.create(usuario=request.user, post=post)
+
+    return redirect("post_detail", slug=slug)

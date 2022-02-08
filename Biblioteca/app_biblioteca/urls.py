@@ -39,6 +39,8 @@ urlpatterns = [
     path("<slug>/actualizarpost", views.PostUpdateView.as_view(), name = "actualizarpost"),
     path("<slug>/borrarpost", views.PostDeleteView.as_view(), name = "borrarpost"),
 
+    path("like/<slug>/", views.like, name="like")
+
 
 ]
     

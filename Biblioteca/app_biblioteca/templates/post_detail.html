@@ -4,15 +4,40 @@
 
 {% block ContenidoQueCambia %}
     
-<div class="container">
+<div class="row">
+<div class="col-4 offset-4">
+<div class="card" style="padding: 10px;">
 
+    <h2>{{object.titulo}}</h2>
+    <img src="{{ object.imagen.url }}"  style="width: 200px; " class="card-img-top" alt="...">
+    <hr>
+    <div>
+        <p>
+            <span>  <i class="fas fa-eye ml-2"> </i>   {{object.get_view_count}}</span>
+            <span>  <i class="fas fa-thumbs-up ml-2">   </i>{{object.get_like_count}}</span>
+            <span>  <i class="fas fa-comments ml-2">   </i>{{object.get_comment_count}}</span>
+            <span class="float-right">Publicado: {{ object.fechaPublicacion|timesince }} atrás</span>
+    </div>
 
+    <hr>
 
-    {{object.titulo}}
-    
+    <div class="card" style="padding: 10px;">
+            <p>{{object.contenido}}</p>
+    </div>
 
-    
+    <hr>
 
+    <div>
+        <h4>Si te gusto dale like</h4>
+        <a class="text-muted" href="{{object.get_like_url}}">
+            <i class="fas fa-thumbs-up fa-lg"></i>
+            {{object.get_like_count}}
+        </a>
+
+    </div>
+
+</div>
+</div>
 </div>
 
 {% endblock %}
