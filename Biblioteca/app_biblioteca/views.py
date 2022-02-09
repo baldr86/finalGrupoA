@@ -8,7 +8,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import Group
 from django.contrib.admin.views.decorators import staff_member_required
 #from django.contrib.auth.decorators import user_passes_test
-from app_biblioteca.models import Curso, Like, Post, Socio, Libro
+from app_biblioteca.models import Curso, Like, Post, Socio, Libro, Vistas
 from django.db.models.functions import Lower, Replace
 from django.contrib import auth
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -213,6 +213,14 @@ class PostDetailView (DetailView):
 
     model = Post
     template_name= "post_detail.html"
+    
+
+
+    def get_object(self, **kwargs):
+        
+        object = super().get_object(**kwargs)
+        Vistas.objects.get_or_create(user= self.request.usuario, post=object)
+        return object
 
 class PostCreateView (CreateView):
     form_class = postForm

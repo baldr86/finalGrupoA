@@ -1,5 +1,7 @@
 from django.db import models
 from django.shortcuts import reverse
+from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 class Libro(models.Model):
 
@@ -38,8 +40,12 @@ class Post(models.Model):
     imagen = models.ImageField()
     fechaPublicacion = models.DateTimeField(auto_now_add=True)
     fechaActualizacion = models.DateTimeField(auto_now=True)
-    autor = models.ForeignKey(Socio, on_delete= models.CASCADE, default="")
-    slug = models.SlugField()
+    autor = models.ForeignKey(User, on_delete= models.CASCADE, default="")
+    slug = models.CharField(max_length=200, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.titulo)
+        super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.titulo
@@ -80,11 +86,10 @@ class Comentarios(models.Model):
      def __str__(self):
         return self.usuario.username
 
-     
 
 
 class Vistas(models.Model):
-    usuario = models.ForeignKey(Socio, on_delete= models.CASCADE, default="")
+    usuario = models.ForeignKey(User, on_delete= models.CASCADE, default= "")
     post = models.ForeignKey(Post, on_delete= models.CASCADE, related_name="views_post")
     fechaComentario = models.DateTimeField(auto_now_add=True)
 
@@ -92,7 +97,7 @@ class Vistas(models.Model):
         return self.usuario.nombre  
 
 class Like(models.Model):
-    usuario = models.ForeignKey(Socio, on_delete= models.CASCADE, default="")
+    usuario = models.ForeignKey(User, on_delete= models.CASCADE, default="")
     post = models.ForeignKey(Post, on_delete= models.CASCADE)
   
 
