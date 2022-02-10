@@ -4,7 +4,7 @@ from unittest.util import _MAX_LENGTH
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Post
+from .models import Post, Comentarios
 
 class LibroFormulario(forms.Form):   
     nombre= forms.CharField(max_length=40)
@@ -51,3 +51,9 @@ class postForm(forms.ModelForm):
         model = Post
         fields = ('__all__')
 
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Comentarios
+        fields = ('comentario', )

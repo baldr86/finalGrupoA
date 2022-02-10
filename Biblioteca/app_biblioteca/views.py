@@ -2,7 +2,7 @@ from dataclasses import field
 from http.client import HTTPResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from app_biblioteca.forms import LibroFormulario, SocioFormulario, CursoFormulario, UserRegisterForm, postForm
+from app_biblioteca.forms import LibroFormulario, SocioFormulario, CursoFormulario, UserRegisterForm, postForm, CommentForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import Group
@@ -214,12 +214,30 @@ class PostDetailView (DetailView):
     model = Post
     template_name= "post_detail.html"
     
+    def post (self, *args,**kwargs):
+        form = CommentForm(self.request.POST)
+        if form.is_valid():
+            post = self.get_object()
+            comment = form.instance
+            comment.user = self.request.user
+            comment.post = post
+            comment.save()
+            
+            return redirect("post_detail",slug=post.slug)
+        return redirect("post_detail", slug=self.get_object().slug)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({ "form" : CommentForm()})
+        return context
+
 
 
     def get_object(self, **kwargs):
         
         object = super().get_object(**kwargs)
-        Vistas.objects.get_or_create(user= self.request.usuario, post=object)
+        if self.request.user.is_authenticated:
+            Vistas.objects.get_or_create(user= self.request.user, post=object)
         return object
 
 class PostCreateView (CreateView):

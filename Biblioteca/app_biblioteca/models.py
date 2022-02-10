@@ -3,6 +3,7 @@ from django.shortcuts import reverse
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
+
 class Libro(models.Model):
 
     def __str__(self):
@@ -63,6 +64,9 @@ class Post(models.Model):
             'slug': self.slug
             })
 
+    @property
+    def comments(self):
+        return self.ClassName_set.all()
 
     @property
     def get_comment_count(self):
@@ -76,25 +80,29 @@ class Post(models.Model):
     def get_like_count(self):
          return self.like_set.all().count()
 
+    @property
+    def get_comments_count (self):
+        return self.comments_set.all()
+
+
 
 class Comentarios(models.Model):
-     usuario = models.ForeignKey(Socio, on_delete= models.CASCADE, default="")
+     usuario = models.ForeignKey(User, on_delete= models.CASCADE, default="")
      post = models.ForeignKey(Post, on_delete= models.CASCADE, related_name="commented_posts")
      fechaComentario = models.DateTimeField(auto_now_add=True)
-     contenido = models.TextField()
-
+     comentario = models.TextField()
      def __str__(self):
         return self.usuario.username
 
 
 
 class Vistas(models.Model):
-    usuario = models.ForeignKey(User, on_delete= models.CASCADE, default= "")
+    user = models.ForeignKey(User, on_delete= models.CASCADE, default= "")
     post = models.ForeignKey(Post, on_delete= models.CASCADE, related_name="views_post")
     fechaComentario = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.usuario.nombre  
+        return self.usuario.username  
 
 class Like(models.Model):
     usuario = models.ForeignKey(User, on_delete= models.CASCADE, default="")

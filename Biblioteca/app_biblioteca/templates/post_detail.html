@@ -1,6 +1,7 @@
 {% extends "padre.html" %}
 
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block ContenidoQueCambia %}
     
@@ -22,7 +23,7 @@
     <hr>
 
     <div class="card" style="padding: 10px;">
-            <p>{{object.contenido}}</p>
+            <p>{{object.comments}}</p>
     </div>
 
     <hr>
@@ -33,6 +34,29 @@
             <i class="fas fa-thumbs-up fa-lg"></i>
             {{object.get_like_count}}
         </a>
+
+        {% if request.user.is_authenticated %}
+        <h4>Deja tu comentario</h4>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class='btn btn-primary' type='submit'>Comentar</button>
+        </form>
+        <hr />
+        <h5>Comentarios</h5>
+        <p>{{object.post}}</p>
+                {% for comment in object.comentario %}
+                    <div>
+                        <p>{{ comentario.comment }}
+                        <br />
+                        <small>{{ comentario.timestamp|timesince }} ago</small>
+                        </p>
+                    </div>
+                    <hr />
+                {% endfor %}
+            {% else %}
+            <a href="{% url 'account_login' %}" class="btn btn-primary btn-block">Iniciar sesión para dejar un</a>
+        {% endif %}
 
     </div>
 
