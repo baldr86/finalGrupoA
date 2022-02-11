@@ -6,8 +6,8 @@
 {% block ContenidoQueCambia %}
     
 <div class="row">
-<div class="col-4 offset-4">
-<div class="card" style="padding: 10px;">
+<div class="col-6 offset-3">
+<div class="card" style="padding: 0px;">
 
     <h2>{{object.titulo}}</h2>
     <img src="{{ object.imagen.url }}"  style="width: 200px; " class="card-img-top" alt="...">
@@ -23,18 +23,28 @@
     <hr>
 
     <div class="card" style="padding: 10px;">
-            <p>{{object.comments}}</p>
+            <p>{{object.contenido}}</p>
     </div>
 
     <hr>
 
     <div>
-        <h4>Si te gusto dale like</h4>
+        <h5>Si te gusto dale like</h5>
         <a class="text-muted" href="{{object.get_like_url}}">
             <i class="fas fa-thumbs-up fa-lg"></i>
             {{object.get_like_count}}
         </a>
-
+        <h5>Comentarios</h5>
+        {% for comentario in object.comments %}
+            <div>
+                <p>{{comentario.usuario}}:</p>
+                <p>{{ comentario.comentario }}
+                <br />
+                <small>{{ comentario.fechaComentario|timesince }} atras</small>
+                </p>
+            </div>
+            <hr />
+        {% endfor %}
         {% if request.user.is_authenticated %}
         <h4>Deja tu comentario</h4>
         <form method="POST">
@@ -43,19 +53,9 @@
             <button class='btn btn-primary' type='submit'>Comentar</button>
         </form>
         <hr />
-        <h5>Comentarios</h5>
-        <p>{{object.post}}</p>
-                {% for comment in object.comentario %}
-                    <div>
-                        <p>{{ comentario.comment }}
-                        <br />
-                        <small>{{ comentario.timestamp|timesince }} ago</small>
-                        </p>
-                    </div>
-                    <hr />
-                {% endfor %}
+        
             {% else %}
-            <a href="{% url 'account_login' %}" class="btn btn-primary btn-block">Iniciar sesión para dejar un</a>
+            <a href="{% url 'accesoasocios' %}" class="btn btn-primary btn-block">Iniciar sesión para dejar un comentario</a>
         {% endif %}
 
     </div>

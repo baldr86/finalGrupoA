@@ -3,14 +3,14 @@
 {% load static %}
 
 {% block ContenidoQueCambia %}
+
+    <h2 style="color:orangered">Confirma delete</h2>
+   
+    <form method= "POST"> {% csrf_token %}
+        <h3>Estás seguro que deseas borrar el post "{{ object }}"? </h3>
+        <button class="btn btn-primary btn-block" type="button btn btn-primary submit"> Eliminar</button>
+        <a href="{% url 'postlist'%}" class="btn btn-primary btn-block">Cancelar</a>
+
+    </form>
     
-<H2>¿Estas seguro que desea eliminar?</H2>
-
-<form method="POST">
-    {% csrf_token %}
-
-    <button class="btn btn-primary" type="submit">Confirmar</button>
-</form>
-
-
 {% endblock %}

@@ -33,7 +33,7 @@ urlpatterns = [
     path('eliminaCursos/<pk>/', views.CursoDelete.as_view(), name='DeleteC'),  
     path('actualizaCursos/<pk>/', views.CursoUpdate.as_view(), name='EditC'),   
 
-    path("postlist/", views.PostListView.as_view(), name = "post_list"),
+    path("postlist/", views.PostListView.as_view(), name = "postlist"),
     path("crearpost/", views.PostCreateView.as_view(), name = "crearpost"),
     path("<slug>/", views.PostDetailView.as_view(), name = "post_detail"),  
     path("<slug>/actualizarpost", views.PostUpdateView.as_view(), name = "actualizarpost"),

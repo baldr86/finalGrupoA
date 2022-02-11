@@ -5,7 +5,7 @@
 
 {% block ContenidoQueCambia %}
     
-<H2 style="text-align: center;">Opiniones y reseñas de nuestros socios</H2>
+<H2 style="text-align: center;">¿No sabés que leer? nuestro staff te recomienda:</H2>
 
 <div class="container">
   <div class="row">
@@ -20,6 +20,11 @@
 
             <div class="card-body">
               <h5 class="card-title">{{object.titulo}}</h5>
+
+              {% if user.is_staff == 1 %}
+              <a href="{% url 'actualizarpost' object.slug%}">Editar</a> <a href="{% url 'borrarpost' object.slug%}">Eliminar</a>
+              {% endif %}
+
               <p class="card-text">{{object.contenido|truncatechars:200 }}.</p>
               <a href="{{object.get_absolute_url}}"> <em> Leer más</em></a>
               <hr>

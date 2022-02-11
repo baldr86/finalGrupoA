@@ -50,7 +50,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.titulo
-
+        
     def get_absolute_url(self):
         
         return reverse("post_detail", kwargs={
@@ -66,7 +66,7 @@ class Post(models.Model):
 
     @property
     def comments(self):
-        return self.ClassName_set.all()
+        return self.commented_posts.all()
 
     @property
     def get_comment_count(self):
@@ -92,7 +92,7 @@ class Comentarios(models.Model):
      fechaComentario = models.DateTimeField(auto_now_add=True)
      comentario = models.TextField()
      def __str__(self):
-        return self.usuario.username
+        return f'usuario: {self.usuario.username} - comentario: {self.comentario} - fechaComentario: {self.fechaComentario}'
 
 
 
@@ -102,7 +102,7 @@ class Vistas(models.Model):
     fechaComentario = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.usuario.username  
+        return self.user.username  
 
 class Like(models.Model):
     usuario = models.ForeignKey(User, on_delete= models.CASCADE, default="")

@@ -219,11 +219,11 @@ class PostDetailView (DetailView):
         if form.is_valid():
             post = self.get_object()
             comment = form.instance
-            comment.user = self.request.user
+            comment.usuario = self.request.user
             comment.post = post
             comment.save()
             
-            return redirect("post_detail",slug=post.slug)
+            return redirect("post_detail", slug=self.get_object().slug)
         return redirect("post_detail", slug=self.get_object().slug)
 
     def get_context_data(self, **kwargs):
@@ -249,11 +249,11 @@ class PostCreateView (CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'view_type': 'Crear'
+            'view_type': 'Crear',
         })
         return context
         
-    success_url= '/app_biblioteca/postlist'
+    success_url= '/postlist'
 
 class PostUpdateView (UpdateView):
     form_class = postForm
@@ -268,13 +268,13 @@ class PostUpdateView (UpdateView):
         })
         return context
 
-    success_url= '/app_biblioteca/postlist'    
+    success_url= '/postlist'    
 
 class PostDeleteView (DeleteView):
 
     model = Post
     template_name= 'post_confirm_delete.html'
-    success_url= '/app_biblioteca/postlist'
+    success_url= '/postlist'
 
 def like(request, slug):
     post = get_object_or_404(Post, slug=slug)
