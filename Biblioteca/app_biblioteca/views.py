@@ -2,12 +2,11 @@ from dataclasses import field
 from http.client import HTTPResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from app_biblioteca.forms import LibroFormulario, SocioFormulario, CursoFormulario, UserRegisterForm, postForm, CommentForm
+from app_biblioteca.forms import UserRegisterForm, postForm, CommentForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import Group
 from django.contrib.admin.views.decorators import staff_member_required
-#from django.contrib.auth.decorators import user_passes_test
 from app_biblioteca.models import Curso, Like, Post, Socio, Libro, Vistas
 from django.db.models.functions import Lower, Replace
 from django.contrib import auth
@@ -20,6 +19,10 @@ from django.urls import reverse_lazy
 def inicio(request):
 
     return render(request, "inicio.html")
+
+def nosotros(request):
+    
+    return render(request, "nosotros.html")
 
 
 def catalogo(request):
@@ -62,11 +65,9 @@ def creatucuenta (request):
         #form = UserCreationForm (request.POST)
         form = UserRegisterForm (request.POST)
         if form.is_valid():
+
             username= form.cleaned_data['username']
-            #form.cleaned_data ['groups'] = 'Asociados'
-            form.save()
-            #form.cleaned_data ['groups'] = 'Asociados'
-            print (form)
+            form.save()           
             return render (request, 'padre.html', {'mensaje': 'Usuario Creado con éxito :) '})
            
         else:
@@ -77,7 +78,7 @@ def creatucuenta (request):
         form = UserRegisterForm ()
         return render (request, 'creatucuenta.html', {'form': form})
 
-def accesoasocios (request):
+def accesoacuenta (request):
 
     if request.method == "POST":
         form = AuthenticationForm (request, data=request.POST)
@@ -100,7 +101,7 @@ def accesoasocios (request):
         
     else:
         form = AuthenticationForm()
-        return render (request, "accesoasocios.html", {'form': form})
+        return render (request, "accesoacuenta.html", {'form': form})
 
 def accesoastaff (request):
     
@@ -120,7 +121,7 @@ class SocioDetail (DetailView):
 class SocioUpdate (UpdateView):
 
     model = Socio
-    success_url= '/app_biblioteca/listaSocios'
+    success_url= '/listaSocios'
     fields = ['nombre', 'documento', 'mail', 'telefono']
     template_name= 'socio_form.html'
    
@@ -128,7 +129,7 @@ class SocioUpdate (UpdateView):
 class SocioCreate (CreateView):
 
     model = Socio
-    success_url= '/app_biblioteca/listaSocios'
+    success_url= '/listaSocios'
     fields = ['nombre', 'documento', 'mail', 'telefono']    
     template_name= 'socios.html'
     
@@ -136,7 +137,7 @@ class SocioCreate (CreateView):
 class SocioDelete (DeleteView):
 
     model = Socio
-    success_url= '/app_biblioteca/listaSocios'
+    success_url= '/listaSocios'
     template_name= 'socio_confirm_delete.html'
 
   
@@ -153,21 +154,21 @@ class LibroDetail (DetailView):
 class LibroUpdate (UpdateView):
 
     model = Libro
-    success_url= '/app_biblioteca/listaLibros'
+    success_url= '/listaLibros'
     fields = ['nombre', 'autor', 'publicacion', 'genero', 'editorial']
     template_name= 'libro_form.html'
        
 class LibroCreate (CreateView):
 
     model = Libro
-    success_url= '/app_biblioteca/listaLibros'
+    success_url= '/listaLibros'
     fields = ['nombre', 'autor', 'publicacion', 'genero', 'editorial']   
     template_name= 'libros.html'
     
 class LibroDelete (DeleteView):
 
     model = Libro
-    success_url= '/app_biblioteca/listaLibros'
+    success_url= '/listaLibros'
     template_name= 'libro_confirm_delete.html'
 
   
@@ -184,21 +185,21 @@ class CursoDetail (DetailView):
 class CursoUpdate (UpdateView):
 
     model = Curso
-    success_url= '/app_biblioteca/listaCursos'
+    success_url= '/listaCursos'
     fields = ['nombre', 'codigocurso', 'docente', 'diahorario']
     template_name= 'curso_form.html'
        
 class CursoCreate (CreateView):
 
     model = Curso
-    success_url= '/app_biblioteca/listaCursos'
+    success_url= '/listaCursos'
     fields = ['nombre', 'codigocurso', 'docente', 'diahorario']   
     template_name= 'cursos.html'
     
 class CursoDelete (DeleteView):
 
     model = Curso
-    success_url= '/app_biblioteca/listaCursos'
+    success_url= '/listaCursos'
     template_name= 'curso_confirm_delete.html'
 
 

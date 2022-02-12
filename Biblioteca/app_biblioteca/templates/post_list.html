@@ -6,7 +6,9 @@
 {% block ContenidoQueCambia %}
     
 <H2 style="text-align: center;">¿No sabés que leer? nuestro staff te recomienda:</H2>
-
+{% if user.is_staff == 1 %}
+<a class="btn btn-primary" href="{% url 'crearpost' %}">Nuevo Post</a>
+{% endif %}
 <div class="container">
   <div class="row">
     {% for object in object_list  %}

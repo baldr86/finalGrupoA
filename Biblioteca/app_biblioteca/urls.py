@@ -6,12 +6,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
+    path('inicio/', views.nosotros, name='nosotros'),
     path("catalogo/", views.catalogo, name='catalogo'),
     path("listadocursos/", views.listadocursos, name='listadocursos'),
     path("buscarlibro/", views.buscarLibro, name="buscarlibro"),
     path("buscar/", views.buscar, name='buscar'),
     path("creatucuenta/", views.creatucuenta, name="creatucuenta"),
-    path("accesoasocios/", views.accesoasocios, name='accesoasocios'),
+    path("accesoacuenta/", views.accesoacuenta, name='accesoacuenta'),
     path('logout/', LogoutView.as_view(template_name='logout.html'), name='Logout'),
     path('accesoastaff/', views.accesoastaff, name='accesoastaff'),
   
@@ -38,9 +39,7 @@ urlpatterns = [
     path("<slug>/", views.PostDetailView.as_view(), name = "post_detail"),  
     path("<slug>/actualizarpost", views.PostUpdateView.as_view(), name = "actualizarpost"),
     path("<slug>/borrarpost", views.PostDeleteView.as_view(), name = "borrarpost"),
-
     path("like/<slug>/", views.like, name="like")
-
 
 ]
     
