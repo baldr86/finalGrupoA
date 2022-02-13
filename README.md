@@ -82,13 +82,15 @@ Al ingresar se visualiza nombre de la biblioteca y  barra de menú con las sigui
                   
                   intente nuevamente"
 
-•	Ingresar: para login de usuarios ya registrados. Al loguearse se muestra saludo, en caso de error muestra mensaje
-
-            de ingreso erróneo. En caso de ingreso exitoso, aparece opción en menú para "salir",
+•	Ingresar: para login de usuarios ya registrados. Al loguearse se muestra saludo, aparece opción en menú para "salir",
             
-            desaparece opción de “crear cuenta", y se habilita opción de menú "Nuestras recomendaciones".
+              desaparece opción de “crear cuenta", y se habilita opción de menú "Nuestras recomendaciones".
+              
+              Si el usuario logueado es personal de staff, se habilita opción “Personal P.P.P.”
+              
+              En caso de error muestra mensaje de ingreso erróneo.
 
-•	Nuestras recomendaciones: visible para usuarios logueados (no personal de staff). Se accede a lista de posts.
+•	Nuestras recomendaciones: visible sólo para usuarios logueados. Se accede a lista de posts.
 
                             Para cada elemento se ve cantidad de “vistas”, “likes” y “comentarios” que tiene el post.
                             
