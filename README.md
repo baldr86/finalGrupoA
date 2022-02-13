@@ -4,6 +4,8 @@ Proyecto Grupo A: Biblioteca P.P.P.
 
 Se basa en la idea de una biblioteca pública y gratuita. Requiere ser socio para acceder a préstamos de libros.
 
+Para su ejecución se requiere la ejecución de : pip install django-crispy-forms
+
 Al ingresar se visualiza nombre de la biblioteca y  barra de menú con las siguientes opciones:
 
 •	Inicio: accesible desde cualquier otro lugar, retorna al inicio
