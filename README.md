@@ -1,5 +1,7 @@
 finalGrupoA
 
+Integrantes: Pablo Petrich, Paola Enderle y Patricia Palazzo
+
 Proyecto Grupo A: Biblioteca P.P.P.
 
 Se basa en la idea de una biblioteca pública y gratuita. Requiere ser socio para acceder a préstamos de libros.
@@ -124,4 +126,21 @@ los siguientes: “accesoacuenta”, “buscarlibro”, “catalogo”, “creat
 “post_detail”, “post_form”, “post_list”, “resultado”, “socio_confirm_delete”, “socio_detail”, “socio_form”,
 
 “socio_list”, “socios”
+
+Tareas de los integrantes del grupo:
+
+Pablo: tema posts completo, creación, edición, eliminación, listado, conteo de vistas, likes, y comentarios:  vistas,
+
+formularios y templates, URLS correspondientes. Creación de video explicativo del proyecto. Revisiones y controles generales. 
+
+Paola: creación de modelo y formulario de cursos, sección “nosotros”: template y vista, revisión de proyecto en general,
+
+creación de plantilla de pruebas de control.
+
+Patricia: adecuación página HTML descargada de Bootstrap, menús (control de acceso), creación de cuenta de usuario, login,
+
+logout:  vistas, clases, templates, URLS. CRUD: libros, socios, cursos: URLS, vistas, formularios y templates. 
+
+Carga de base de datos, redacción readme, revisión en general.
+
 
