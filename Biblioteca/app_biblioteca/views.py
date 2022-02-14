@@ -1,13 +1,15 @@
+from ast import Not
+from curses.ascii import NUL
 from dataclasses import field
 from http.client import HTTPResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from app_biblioteca.forms import UserRegisterForm, postForm, CommentForm
+from app_biblioteca.forms import AvatarFormulario, UserEditForm, UserRegisterForm, postForm, CommentForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.contrib.admin.views.decorators import staff_member_required
-from app_biblioteca.models import Curso, Like, Post, Socio, Libro, Vistas
+from app_biblioteca.models import Avatar, Curso, Like, Post, Socio, Libro, Vistas
 from django.db.models.functions import Lower, Replace
 from django.contrib import auth
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,6 +17,8 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+
 
 def inicio(request):
 
@@ -201,7 +205,72 @@ class CursoDelete (DeleteView):
     model = Curso
     success_url= '/listaCursos'
     template_name= 'curso_confirm_delete.html'
+    
+@login_required
+def perfil (request):
+    avatares = Avatar.objects.filter(user=request.user.id) 
+    print(avatares)
+    if not avatares:
+            return render(request, 'perfil.html', {'url': '/media/avatar.jpg'})
+    else:
+            return render(request, 'perfil.html', {'url': avatares[0].imagen.url})
 
+   
+        
+
+@login_required
+def editarPerfil(request):
+
+      usuario = request.user
+     
+      if request.method == 'POST':
+            miFormulario = UserEditForm(request.POST) 
+            if miFormulario.is_valid: 
+
+                  informacion = miFormulario.cleaned_data
+        
+                  usuario.email = informacion['email']
+                  usuario.password1 = informacion['password1']
+                  usuario.password2 = informacion['password1']
+                  usuario.save()
+
+                  return render(request, "padre.html")
+      else: 
+        
+            miFormulario= UserEditForm(initial={ 'email':usuario.email}) 
+
+
+      return render(request, "editarperfil.html", {"miFormulario":miFormulario, "usuario":usuario})
+
+
+
+@login_required
+def agregarAvatar(request):
+      if request.method == 'POST':
+
+            miFormulario = AvatarFormulario(request.POST, request.FILES)
+
+            if miFormulario.is_valid(): 
+
+
+                  u = User.objects.get(username=request.user)
+                  
+                
+                  avatar = Avatar (user=u, imagen=miFormulario.cleaned_data['imagen']) 
+      
+                  avatar.save()
+
+                  return render(request, "inicio.html") 
+      else: 
+
+            miFormulario= AvatarFormulario()
+
+      return render(request, "agregaravatar.html", {"miFormulario":miFormulario})
+
+
+def urlImagen():
+
+      return "/media/avatares/logo.png"
 
 #POST DE SOCIOS
 

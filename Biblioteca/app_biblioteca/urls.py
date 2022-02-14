@@ -15,6 +15,10 @@ urlpatterns = [
     path("accesoacuenta/", views.accesoacuenta, name='accesoacuenta'),
     path('logout/', LogoutView.as_view(template_name='logout.html'), name='Logout'),
     path('accesoastaff/', views.accesoastaff, name='accesoastaff'),
+    path('perfil/', views.perfil, name='perfil'),
+    path('editarperfil/', views.editarPerfil, name="editarperfil"),
+    path('avatar/', views.agregarAvatar, name="avatar"),
+ 
   
     path('listaSocios/', views.SocioList.as_view(), name='List'),
     path('detalleSocios/<pk>/', views.SocioDetail.as_view(), name='Detail'),    

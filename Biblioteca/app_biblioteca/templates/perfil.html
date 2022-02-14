@@ -1,0 +1,21 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+{% if request.user.is_authenticated %}
+                
+<div class="container">
+
+   <h3>Perfil</h3>
+   <h4>Datos</h4>
+   <img height="140px" src="{{url}}" alt="">
+   <h5>Usuario: {{user.username}}</h5>
+   <br>
+   <h5>perfil: {{user.email}}</h5>
+
+   <a href="{% url 'editarperfil'%}" class="btn btn-primary btn-block">Editar</a>
+
+</div>
+{% endif %}
+{% endblock %}
