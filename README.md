@@ -94,19 +94,18 @@ Al ingresar se visualiza nombre de la biblioteca y  barra de menú con las sigui
               
               En caso de error muestra mensaje de ingreso erróneo.
 
-•	Nuestras recomendaciones: visible sólo para usuarios logueados. Se accede a lista de posts.
+•	Perfil: visible sólo para usuarios logueados.
 
-                            Para cada elemento se ve cantidad de “vistas”, “likes” y “comentarios” que tiene el post.
-                            
-                            Al clicar en “leer más” se ve contenido completo y se puede dar “like”, y ver los 
-                            
-                            comentarios anteriores, además de escribir y enviar nuevo comentario.
+            Se accede a visualizar los datos de perfil: imagen de avatar, nombre de usuario y mail.
+            
+            Permite “editar”: cambiar imagen de avatar, o los campos de usuario: mail y contraseña.                     
+
 
 •	Salir: para logout del usuario logueado, da mensaje de despedida, habilita opción de "crear cuenta" e "ingresar" 
 
-         del menú principal, deshabilita opción de "Nuestras recomendaciones" y además, deshabilita opción de
-         
-         "Personal P.P.P." en caso que el usuario logueado haya sido un miembro del staff.        
+           del menú principal, deshabilita opción de "Nuestras recomendaciones" y "perfil", además, deshabilita
+           
+           opción de "Personal P.P.P." en caso que el usuario logueado haya sido un miembro del staff.        
          
 
 Botón central “Quiero ser socio”, que hace scroll y muestra requisitos: presentarse personalmente en la Sede de
@@ -117,11 +116,11 @@ Templates:
 
 Se adecuó una página de descarga gratuita del sitio Bootstrap. El template  “padre.html” es heredado por
 
-los siguientes: “accesoacuenta”, “buscarlibro”, “catalogo”, “creatucuenta”, “curso_confirm_delete”, 
+los siguientes: “accesoacuenta”, "agregaravatar", “buscarlibro”, “catalogo”, “creatucuenta”, “curso_confirm_delete”, 
 
-“curso_detail”, “curso_form”, “curso_list”, “cursos”, “libro_confirm_delete”, “libro_detail”, “libro_form”,
+“curso_detail”, “curso_form”, “curso_list”, “cursos”, "editarperfil",“libro_confirm_delete”, “libro_detail”, “libro_form”,
 
-“libro_list”, “libros”, “listadocursos”,”logout”, “menustaff”, “nosotros”, “post_confirm_delete”, “post_create”,
+“libro_list”, “libros”, “listadocursos”,”logout”, “menustaff”, “nosotros”,"perfil", “post_confirm_delete”, “post_create”,
 
 “post_detail”, “post_form”, “post_list”, “resultado”, “socio_confirm_delete”, “socio_detail”, “socio_form”,
 
@@ -131,7 +130,11 @@ Tareas de los integrantes del grupo:
 
 Pablo: tema posts completo, creación, edición, eliminación, listado, conteo de vistas, likes, y comentarios:  vistas,
 
-formularios y templates, URLS correspondientes. Creación de video explicativo del proyecto. Revisiones y controles generales. 
+formularios y templates, URLS correspondientes. Perfil: edición de perfil de usuario, clases, vistas y templates para
+
+carga de avatares y modificación de datos de usuario. Creación de video explicativo del proyecto. Revisiones y 
+
+controles generales. 
 
 Paola: creación de modelo y formulario de cursos, sección “nosotros”: template y vista, revisión de proyecto en general,
 
