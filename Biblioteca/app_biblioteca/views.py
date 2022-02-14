@@ -234,7 +234,7 @@ def editarPerfil(request):
      
       if request.method == 'POST':
             miFormulario = UserEditForm(request.POST) 
-            if miFormulario.is_valid: 
+            if miFormulario.is_valid(): 
 
                   informacion = miFormulario.cleaned_data
         
