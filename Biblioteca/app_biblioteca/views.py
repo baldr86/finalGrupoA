@@ -1,7 +1,7 @@
 from ast import Not
-from curses.ascii import NUL
 from dataclasses import field
 from http.client import HTTPResponse
+from queue import Empty
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from app_biblioteca.forms import AvatarFormulario, UserEditForm, UserRegisterForm, postForm, CommentForm
@@ -209,11 +209,20 @@ class CursoDelete (DeleteView):
 @login_required
 def perfil (request):
     avatares = Avatar.objects.filter(user=request.user.id) 
-    print(avatares)
+    fotoPerfil = []
+    for avatar in avatares:
+        fotoPerfil.append(avatar)
+    
+    if not fotoPerfil:
+        pass
+    
+    else:
+        ultimaImagen = fotoPerfil.pop()
+
     if not avatares:
             return render(request, 'perfil.html', {'url': '/media/avatar.jpg'})
     else:
-            return render(request, 'perfil.html', {'url': avatares[0].imagen.url})
+            return render(request, 'perfil.html', {'url': ultimaImagen.imagen.url})
 
    
         
