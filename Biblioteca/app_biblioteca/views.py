@@ -222,6 +222,7 @@ def perfil (request):
     if not avatares:
             return render(request, 'perfil.html', {'url': '/media/avatar.jpg'})
     else:
+            print (ultimaImagen)
             return render(request, 'perfil.html', {'url': ultimaImagen.imagen.url})
 
    
