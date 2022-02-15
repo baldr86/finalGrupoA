@@ -21,8 +21,9 @@ from django.contrib.auth.decorators import login_required
 
 
 def inicio(request):
-
-    return render(request, "inicio.html")
+    
+            return render(request, 'inicio.html')
+            
 
 def nosotros(request):
     
@@ -94,7 +95,7 @@ def accesoacuenta (request):
             if user is not None:
 
                 login (request, user)
-                return render (request, 'padre.html')
+                return render(request,'padre.html')
               
             else:
 
@@ -218,11 +219,14 @@ def perfil (request):
     
     else:
         ultimaImagen = fotoPerfil.pop()
+        
 
     if not avatares:
             return render(request, 'perfil.html', {'url': '/media/avatar.jpg'})
     else:
+            print(ultimaImagen)
             return render(request, 'perfil.html', {'url': ultimaImagen.imagen.url})
+            
 
    
         
