@@ -1,0 +1,25 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+
+    <h2 style="color:orangered">Lista libros:</h2>
+   
+    <ul>
+        {% for libro in object_list %}
+        <li>
+            <p> TITULO: {{ libro.nombre }}</p>
+            <p>
+                <a href="{% url 'DetailL' libro.id %}">Ver</a>
+                <a href="{% url 'EditL' libro.id %}">Editar</a>
+                <a href="{% url 'DeleteL' libro.id %}">Borrar</a>
+            </p>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'NewL' %}">Nuevo</a>
+    <br>
+    <a href="{% url 'accesoastaff' %}">Regresar: Libros / Cursos / Socios</a>
+    
+{% endblock %}

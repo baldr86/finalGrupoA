@@ -1,0 +1,54 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+
+{% block ContenidoQueCambia %}
+    
+<H2 style="text-align: center;">¿No sabés que leer? nuestro staff te recomienda:</H2>
+{% if user.is_staff == 1 %}
+<a class="btn btn-primary" href="{% url 'crearpost' %}">Nuevo Post</a>
+{% endif %}
+<div class="container">
+  <div class="row">
+    {% for object in object_list  %}
+    <div class="col-4">
+
+   
+       
+
+        <div class="card" style="width: 18rem;">
+            <img src="{{ object.imagen.url }}"  style="width: 200px; " class="card-img-top" alt="...">
+
+            <div class="card-body">
+              <h5 class="card-title">{{object.titulo}}</h5>
+
+              {% if user.is_staff == 1 %}
+              <a href="{% url 'actualizarpost' object.slug%}">Editar</a> <a href="{% url 'borrarpost' object.slug%}">Eliminar</a>
+              {% endif %}
+
+              <p class="card-text">{{object.contenido|truncatechars:200 }}.</p>
+              <a href="{{object.get_absolute_url}}"> <em> Leer más</em></a>
+              <hr>
+              <p>
+                <span>  <i class="fas fa-eye ml-2"> </i>   {{object.get_view_count}}</span>
+                <span>  <i class="fas fa-thumbs-up ml-2">   </i>{{object.get_like_count}}</span>
+                <span>  <i class="fas fa-comments ml-2">   </i>{{object.get_comment_count}}</span>
+              </p>
+                  <p class="cardd-text">
+                    Publicado: {{ object.fechaPublicacion|timesince }} atrás
+                  </p>
+
+            </div>
+              
+        </div>
+       
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+
+{% endblock %}
+

@@ -1,0 +1,16 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+
+    <h2 style="color:orangered">Confirma borrar</h2>
+   
+    <form method= "POST"> {% csrf_token %}
+        Estás seguro que deseas borrar el libro "{{ object }}"?
+        <button class="btn btn-primary btn-block" type="button btn btn-primary submit"> Eliminar</button>
+        <a href="{% url 'ListL'%}" class="btn btn-primary btn-block">Cancelar</a>
+        
+    </form>
+    
+{% endblock %}

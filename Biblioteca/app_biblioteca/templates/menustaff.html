@@ -1,0 +1,22 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+    
+<title>Ingreso de socio</title>
+    <h3 style="color:orangered">Uso Staff:</h3>
+
+<ul>
+    <li> <a class="btn btn-primary" href="{% url 'ListL' %}">LIBROS</a> </li>
+    <br>
+    <li> <a class="btn btn-primary" href="{% url 'ListC' %}">CURSOS</a> </li>
+    <br>
+    <li> <a class="btn btn-primary" href="{% url 'List' %}">SOCIOS</a> </li>
+    <br>
+    <li> <a class="btn btn-primary" href="{% url 'postlist' %}">POSTS</a> </li>
+
+</ul>
+
+
+{% endblock %}

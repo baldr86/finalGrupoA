@@ -4,23 +4,21 @@
 
 {% block ContenidoQueCambia %}
     
-    <h2 style="color:orangered">Cargar nuevos cursos:</h2>
-        <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-        {% if miFormularioCurso.errors %}
+    <h2 style="color:orangered">Cargar nuevo curso:</h2>
+       
+        {% if form.errors %}
 
             <p style="color: red;"> Están mal los datos, revisar</p>
  
         {% endif %}
 
             <form action="" method="POST">{% csrf_token %}
- 
-            <!-- Acá está la magia de Django-->
-         
+             
             <table>
-               {{ miFormularioCurso.as_table }}
+               {{ form.as_table }}
             </table>
  
-            <input type="submit", value="Cargar cursos">
+            <input type="submit", value="Crear">
  
             </form>
  

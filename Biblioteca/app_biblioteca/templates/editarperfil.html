@@ -1,0 +1,28 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block ContenidoQueCambia %}
+
+
+<h2>Editar Perfil</h2>
+<h2>De {{usuario}}</h2>
+
+
+<form action="" method="POST">{% csrf_token %}
+
+    
+    <table>
+
+        {{ miFormulario.as_table }}
+        
+       <h5> <a href="{% url 'avatar'%}">Cambiar Avatar</a> </h5>
+    </table>
+
+
+    <input type="submit", value="Enviar">
+
+</form>
+
+
+{% endblock %}
